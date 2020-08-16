@@ -108,8 +108,9 @@ Example response:
     "collections_id": 2
 }
 ```
+### Collections
 
-### Get a list of all collections: `GET /api/collections`
+#### Get a list of all collections: `GET /api/collections`
 
 Example response:
 ```
@@ -138,7 +139,7 @@ Example response:
 ]
 ```
 
-### Create a new collection: `POST /api/collections`
+#### Create a new collection: `POST /api/collections`
 
 Example payload:
 ```
@@ -157,7 +158,7 @@ Example response:
 ```
 
 
-### Get a specific collection by ID: `GET /api/collections/{id}`
+#### Get a specific collection by ID: `GET /api/collections/{id}`
 
 Example response:
 ```
@@ -169,7 +170,7 @@ Example response:
 ```
 
 
-#### Get a specific collection by ID and sorted boulders
+##### Get a specific collection by ID and sorted boulders
 Current available sorting methods are `name` and `grade`.
 
 `GET /api/collections/{id}?sort=name`
