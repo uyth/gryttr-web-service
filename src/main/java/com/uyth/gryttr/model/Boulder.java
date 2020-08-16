@@ -25,6 +25,10 @@ public class Boulder {
     @Column(name = "longitude")
     private double longitude;
 
+    @ManyToOne
+    @JoinColumn(name="collections_id")
+    private Collection collection;
+
     public Long getId() {
         return id;
     }
@@ -53,16 +57,8 @@ public class Boulder {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
     }
 
     public void setLatLong(double latitude, double longitude) {
@@ -70,8 +66,16 @@ public class Boulder {
         this.longitude = longitude;
     }
 
-    @ManyToOne
-    @JoinColumn(name="collections_id")
-    private Collection collection;
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
+    }
+
+    public long getCollectionsId() {
+        return this.collection.getId();
+    }
 
 }
