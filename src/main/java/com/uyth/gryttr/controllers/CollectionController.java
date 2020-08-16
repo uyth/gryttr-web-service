@@ -2,6 +2,7 @@ package com.uyth.gryttr.controllers;
 
 import com.uyth.gryttr.exceptions.ResourceNotFoundException;
 import com.uyth.gryttr.model.Collection;
+import com.uyth.gryttr.model.dto.CollectionCreationDto;
 import com.uyth.gryttr.model.dto.CollectionResponseDto;
 import com.uyth.gryttr.repository.CollectionRepository;
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +41,20 @@ public class CollectionController {
     protected CollectionResponseDto mapCollectionToResponseDto(Collection collection) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(collection, CollectionResponseDto.class);
+    }
+
+    @PostMapping("/collections")
+    public ResponseEntity<CollectionResponseDto> updateCollection(@RequestBody CollectionCreationDto collectionDto) {
+        Collection collection = generateCollection(collectionDto);
+        CollectionResponseDto responseDto = mapCollectionToResponseDto(collection);
+        return ResponseEntity.ok().body(responseDto);
+    }
+
+    protected Collection generateCollection(CollectionCreationDto collectionDto) {
+        Collection collection = new Collection();
+        collection.setName(collectionDto.getName());
+        collection.setBoulders(new ArrayList<>());
+        return collectionRepository.save(collection);
     }
 
 }
