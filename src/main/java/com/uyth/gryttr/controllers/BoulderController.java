@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -25,8 +26,14 @@ public class BoulderController {
     private CollectionRepository collectionRepository;
 
     @GetMapping("/boulders")
-    public List<Boulder> getAllBoulder() {
-        return boulderRepository.findAll();
+    public List<BoulderResponseDto> getAllBoulder() {
+        List<Boulder> boulders = boulderRepository.findAll();
+        return boulders.stream().map(this::mapBoulderToBoulderDto).collect(Collectors.toList());
+    }
+
+    protected BoulderResponseDto mapBoulderToBoulderDto(Boulder boulder) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(boulder, BoulderResponseDto.class);
     }
 
     @GetMapping("/boulders/{id}")
@@ -35,11 +42,6 @@ public class BoulderController {
                 .orElseThrow(() -> new ResourceNotFoundException("Boulder with ID '" + id.toString() + "' was not found."));
         BoulderResponseDto boulderResponseDto = mapBoulderToBoulderDto(boulder);
         return ResponseEntity.ok().body(boulderResponseDto);
-    }
-
-    protected BoulderResponseDto mapBoulderToBoulderDto(Boulder boulder) {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(boulder, BoulderResponseDto.class);
     }
 
     @PostMapping("/boulders")
