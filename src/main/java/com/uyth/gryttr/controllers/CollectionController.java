@@ -60,7 +60,7 @@ public class CollectionController {
     }
 
     @PostMapping("/collections")
-    public ResponseEntity<CollectionResponseDto> updateCollection(@RequestBody CollectionCreationDto collectionDto) {
+    public ResponseEntity<CollectionResponseDto> addCollection(@RequestBody CollectionCreationDto collectionDto) {
         Collection collection = generateCollection(collectionDto);
         CollectionResponseDto responseDto = mapCollectionToResponseDto(collection);
         return ResponseEntity.ok().body(responseDto);
