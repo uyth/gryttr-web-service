@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
 --
--- Host: localhost    Database: boulders
+-- Host: localhost    Database: gryttrdb
 -- ------------------------------------------------------
 -- Server version	5.7.31-0ubuntu0.18.04.1
 
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `boulders`
+-- Current Database: `gryttrdb`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `boulders` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `gryttrdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `boulders`;
+USE `gryttrdb`;
 
 --
 -- Table structure for table `boulders`
