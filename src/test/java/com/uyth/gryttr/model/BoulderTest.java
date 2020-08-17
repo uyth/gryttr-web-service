@@ -60,6 +60,18 @@ public class BoulderTest {
     }
 
     @Test
+    public void testSetIllegalLatLong() {
+        Boulder boulder = new Boulder();
+        assertThrows(IllegalStateException.class, () -> boulder.setLatLong(91.0, LONGITUDE));
+        assertThrows(IllegalStateException.class, () -> boulder.setLatLong(-91.0, LONGITUDE));
+        assertThrows(IllegalStateException.class, () -> boulder.setLatLong(LATITUDE, -181.0));
+        assertThrows(IllegalStateException.class, () -> boulder.setLatLong(LATITUDE, 81.0));
+        boulder.setLatLong(-90.0, -180.0);
+        boulder.setLatLong(90.0, 80.0);
+    }
+
+
+    @Test
     public void testSetCollection() {
         Boulder boulder = new Boulder();
         Collection collection = new Collection();

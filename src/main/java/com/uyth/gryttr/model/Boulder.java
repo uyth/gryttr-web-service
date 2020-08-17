@@ -74,9 +74,19 @@ public class Boulder {
         return longitude;
     }
 
-    public void setLatLong(double latitude, double longitude) {
+    public void setLatLong(double latitude, double longitude) throws IllegalStateException {
+        checkLatLong(latitude, longitude);
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    private void checkLatLong(double latitude, double longitude) throws IllegalStateException {
+        if (latitude < -90.0 || latitude > 90) {
+            throw new IllegalStateException("Latitude must have a value between -90 and 90");
+        }
+        if (longitude < -180.0 || longitude > 80) {
+            throw new IllegalStateException("Longitude must have a value between -180 and 80");
+        }
     }
 
     public Collection getCollection() {
