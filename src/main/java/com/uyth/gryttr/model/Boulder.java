@@ -1,5 +1,7 @@
 package com.uyth.gryttr.model;
 
+import com.uyth.gryttr.model.dto.BoulderResponseDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -76,6 +78,11 @@ public class Boulder {
 
     public long getCollectionsId() {
         return this.collection.getId();
+    }
+
+    public BoulderResponseDto mapToResponseDto() {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(this, BoulderResponseDto.class);
     }
 
 }
