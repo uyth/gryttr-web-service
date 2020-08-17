@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BoulderTest {
 
     Long ID = 22L;
-    String GRADE = "5A+";
+    String GRADE = "6A+";
     String NAME = "Test boulder";
     double LATITUDE = 2.0;
     double LONGITUDE = 14.0;
