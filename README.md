@@ -1,4 +1,4 @@
-# grytter-web-service
+# gryttr-web-service
 
 gryttr-web-service is a RESTful web service built with Spring Boot and MySQL.
 
