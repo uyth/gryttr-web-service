@@ -32,6 +32,19 @@ public class BoulderTest {
     }
 
     @Test
+    public void testIllegalGrade() {
+        Boulder boulder = new Boulder();
+        assertThrows(IllegalStateException.class, () -> boulder.setGrade("A7"));
+        assertThrows(IllegalStateException.class, () -> boulder.setGrade("2A"));
+        assertThrows(IllegalStateException.class, () -> boulder.setGrade("6D"));
+        assertThrows(IllegalStateException.class, () -> boulder.setGrade("6+"));
+        boulder.setGrade("3");
+        boulder.setGrade("3+");
+        boulder.setGrade("6A");
+        boulder.setGrade("6A+");
+    }
+
+    @Test
     public void testSetName() {
         Boulder boulder = new Boulder();
         boulder.setName(NAME);
