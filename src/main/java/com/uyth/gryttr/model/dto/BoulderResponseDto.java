@@ -56,4 +56,17 @@ public class BoulderResponseDto {
         this.collections_id = collectionsId;
     }
 
+    @Override
+    public String toString() {
+        Object[] data = {id, name, grade, latitude, longitude, collections_id};
+        return String.format("{" +
+                "\"id\":%1$s," +
+                "\"name\":%2$s," +
+                "\"grade\":%3$s," +
+                "\"latitude\":%4$s," +
+                "\"longitude\":%5$s," +
+                "\"collections_id\":%6$s" +
+                "}"
+                , data);
+    }
 }
