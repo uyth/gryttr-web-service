@@ -7,6 +7,7 @@ import com.uyth.gryttr.model.dto.BoulderCreationDto;
 import com.uyth.gryttr.model.dto.BoulderResponseDto;
 import com.uyth.gryttr.repository.BoulderRepository;
 import com.uyth.gryttr.repository.CollectionRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,15 +28,20 @@ public class BoulderController {
     @GetMapping("/boulders")
     public List<BoulderResponseDto> getAllBoulder() {
         List<Boulder> boulders = boulderRepository.findAll();
-        return boulders.stream().map(Boulder::mapToResponseDto).collect(Collectors.toList());
+        return boulders.stream().map(this::mapBoulderToResponseDto).collect(Collectors.toList());
     }
 
     @GetMapping("/boulders/{id}")
     public ResponseEntity<BoulderResponseDto> getBoulderById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         Boulder boulder = boulderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Boulder with ID '" + id.toString() + "' was not found."));
-        BoulderResponseDto boulderResponseDto = boulder.mapToResponseDto();
+        BoulderResponseDto boulderResponseDto = mapBoulderToResponseDto(boulder);
         return ResponseEntity.ok().body(boulderResponseDto);
+    }
+
+    public BoulderResponseDto mapBoulderToResponseDto(Boulder boulder) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(boulder, BoulderResponseDto.class);
     }
 
     @PostMapping("/boulders")
@@ -46,7 +52,7 @@ public class BoulderController {
 
         boulderRepository.save(newBoulder);
         collectionRepository.save(collection);
-        BoulderResponseDto boulderResponseDto = newBoulder.mapToResponseDto();
+        BoulderResponseDto boulderResponseDto = mapBoulderToResponseDto(newBoulder);
         return ResponseEntity.ok().body(boulderResponseDto);
     }
 

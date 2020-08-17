@@ -1,6 +1,5 @@
 package com.uyth.gryttr.model;
 
-import com.uyth.gryttr.model.dto.BoulderResponseDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -82,32 +81,6 @@ public class BoulderTest {
 
         assertSame(boulder.getCollection(), collection);
         assertEquals(boulder.getCollectionsId(), collection.getId());
-    }
-
-    @Test
-    public void testMapBoulderToBoulderDto() {
-        Boulder boulder = generateBoulder();
-        BoulderResponseDto boulderDto = boulder.mapToResponseDto();
-
-        assertEquals(boulder.getId(), boulderDto.getId());
-        assertEquals(boulder.getName(), boulderDto.getName());
-        assertEquals(boulder.getGrade(), boulderDto.getGrade());
-        assertEquals(boulder.getLatitude(), boulderDto.getLatitude());
-        assertEquals(boulder.getLongitude(), boulderDto.getLongitude());
-        assertEquals(boulder.getCollectionsId(), boulderDto.getCollections_id());
-    }
-
-    private Boulder generateBoulder() {
-        Boulder boulder = new Boulder();
-        boulder.setId(ID);
-        boulder.setName(NAME);
-        boulder.setGrade(GRADE);
-        boulder.setLatLong(LATITUDE, LONGITUDE);
-        Collection collection = new Collection();
-        collection.setId(COLLECTIONS_ID);
-        boulder.setCollection(collection);
-        collection.setBoulders(new HashSet<>(Arrays.asList(boulder)));
-        return boulder;
     }
 
 }
