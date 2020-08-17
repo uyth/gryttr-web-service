@@ -10,28 +10,75 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoulderTest {
 
+    Long ID = 22L;
+    String GRADE = "5A+";
+    String NAME = "Test boulder";
+    double LATITUDE = 2.0;
+    double LONGITUDE = 14.0;
+    Long COLLECTIONS_ID = 2L;
+
+    @Test
+    public void testSetId() {
+        Boulder boulder = new Boulder();
+        boulder.setId(ID);
+        assertEquals(ID, boulder.getId());
+    }
+
+    @Test
+    public void testSetGrade() {
+        Boulder boulder = new Boulder();
+        boulder.setGrade(GRADE);
+        assertEquals(GRADE, boulder.getGrade());
+    }
+
+    @Test
+    public void testSetName() {
+        Boulder boulder = new Boulder();
+        boulder.setName(NAME);
+        assertEquals(NAME, boulder.getName());
+    }
+
+    @Test
+    public void testSetLatLong() {
+        Boulder boulder = new Boulder();
+        boulder.setLatLong(LATITUDE, LONGITUDE);
+        assertEquals(LATITUDE, boulder.getLatitude());
+        assertEquals(LONGITUDE, boulder.getLongitude());
+    }
+
+    @Test
+    public void testSetCollection() {
+        Boulder boulder = new Boulder();
+        Collection collection = new Collection();
+        collection.setId(COLLECTIONS_ID);
+        boulder.setCollection(collection);
+        collection.setBoulders(Arrays.asList(boulder));
+
+        assertSame(boulder.getCollection(), collection);
+        assertEquals(boulder.getCollectionsId(), collection.getId());
+    }
 
     @Test
     public void testMapBoulderToBoulderDto() {
-        Boulder mockBoulder = generateBoulder();
-        BoulderResponseDto boulderDto = mockBoulder.mapToResponseDto();
+        Boulder boulder = generateBoulder();
+        BoulderResponseDto boulderDto = boulder.mapToResponseDto();
 
-        assertEquals(mockBoulder.getId(), boulderDto.getId());
-        assertEquals(mockBoulder.getName(), boulderDto.getName());
-        assertEquals(mockBoulder.getGrade(), boulderDto.getGrade());
-        assertEquals(mockBoulder.getLatitude(), boulderDto.getLatitude());
-        assertEquals(mockBoulder.getLongitude(), boulderDto.getLongitude());
-        assertEquals(mockBoulder.getCollectionsId(), boulderDto.getCollections_id());
+        assertEquals(boulder.getId(), boulderDto.getId());
+        assertEquals(boulder.getName(), boulderDto.getName());
+        assertEquals(boulder.getGrade(), boulderDto.getGrade());
+        assertEquals(boulder.getLatitude(), boulderDto.getLatitude());
+        assertEquals(boulder.getLongitude(), boulderDto.getLongitude());
+        assertEquals(boulder.getCollectionsId(), boulderDto.getCollections_id());
     }
 
     private Boulder generateBoulder() {
         Boulder boulder = new Boulder();
-        boulder.setId(2L);
-        boulder.setName("Boulder");
-        boulder.setGrade("6A+");
-        boulder.setLatLong(12.0, 6.0);
+        boulder.setId(ID);
+        boulder.setName(NAME);
+        boulder.setGrade(GRADE);
+        boulder.setLatLong(LATITUDE, LONGITUDE);
         Collection collection = new Collection();
-        collection.setId(2L);
+        collection.setId(COLLECTIONS_ID);
         boulder.setCollection(collection);
         collection.setBoulders(Arrays.asList(boulder));
         return boulder;
