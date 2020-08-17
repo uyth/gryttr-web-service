@@ -4,6 +4,7 @@ import com.uyth.gryttr.model.dto.BoulderResponseDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,7 +78,7 @@ public class BoulderTest {
         Collection collection = new Collection();
         collection.setId(COLLECTIONS_ID);
         boulder.setCollection(collection);
-        collection.setBoulders(Arrays.asList(boulder));
+        collection.setBoulders(new HashSet<>(Arrays.asList(boulder)));
 
         assertSame(boulder.getCollection(), collection);
         assertEquals(boulder.getCollectionsId(), collection.getId());
@@ -105,7 +106,7 @@ public class BoulderTest {
         Collection collection = new Collection();
         collection.setId(COLLECTIONS_ID);
         boulder.setCollection(collection);
-        collection.setBoulders(Arrays.asList(boulder));
+        collection.setBoulders(new HashSet<>(Arrays.asList(boulder)));
         return boulder;
     }
 

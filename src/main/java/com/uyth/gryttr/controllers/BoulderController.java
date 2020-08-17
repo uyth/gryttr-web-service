@@ -42,7 +42,7 @@ public class BoulderController {
     public ResponseEntity<BoulderResponseDto> newBoulder(@RequestBody BoulderCreationDto boulderDto) throws ResourceNotFoundException {
         Collection collection = safeGetCollectionById(boulderDto.getCollections_id());
         Boulder newBoulder = generateBoulderFromDto(boulderDto);
-        addBoulderToCollection(collection, newBoulder);
+        collection.addBoulder(newBoulder);
 
         boulderRepository.save(newBoulder);
         collectionRepository.save(collection);
@@ -61,13 +61,6 @@ public class BoulderController {
     private Collection safeGetCollectionById(Long id) throws ResourceNotFoundException {
         return collectionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Collection with ID '" + id.toString() + "' was not found."));
-    }
-
-    protected Collection addBoulderToCollection(Collection collection, Boulder newBoulder) {
-        newBoulder.setCollection(collection);
-        List<Boulder> boulders = collection.getBoulders();
-        boulders.add(newBoulder);
-        return collection;
     }
 
 }

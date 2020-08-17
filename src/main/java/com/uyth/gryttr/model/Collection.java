@@ -3,7 +3,7 @@ package com.uyth.gryttr.model;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "collections")
@@ -18,7 +18,7 @@ public class Collection {
     private String name;
 
     @OneToMany(mappedBy = "collection")
-    private List<Boulder> boulders;
+    private Set<Boulder> boulders;
 
     public Long getId() {
         return id;
@@ -36,11 +36,17 @@ public class Collection {
         this.name = name;
     }
 
-    public List<Boulder> getBoulders() {
+    public Set<Boulder> getBoulders() {
         return boulders;
     }
 
-    public void setBoulders(List<Boulder> boulders) {
+    public void setBoulders(Set<Boulder> boulders) {
         this.boulders = boulders;
+    }
+
+    public Collection addBoulder(Boulder boulder) {
+        boulder.setCollection(this);
+        this.getBoulders().add(boulder);
+        return this;
     }
 }

@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +69,7 @@ public class CollectionController {
     protected Collection generateCollection(CollectionCreationDto collectionDto) {
         Collection collection = new Collection();
         collection.setName(collectionDto.getName());
-        collection.setBoulders(new ArrayList<>());
+        collection.setBoulders(new HashSet<>());
         return collectionRepository.save(collection);
     }
 
