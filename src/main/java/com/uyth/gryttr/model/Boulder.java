@@ -56,11 +56,11 @@ public class Boulder {
         this.grade = grade;
     }
 
-    private void checkGrade(String grade) throws IllegalStateException {
+    public static void checkGrade(String grade) throws IllegalArgumentException {
         Pattern pattern = Pattern.compile("([3-5]|[6-9][A-C])\\+?");
         Matcher matcher = pattern.matcher(grade);
         if (!matcher.matches()) {
-            throw new IllegalStateException("Grade " + grade + " is not on the correct format.");
+            throw new IllegalArgumentException("Grade " + grade + " is not on the correct format.");
         }
     }
 

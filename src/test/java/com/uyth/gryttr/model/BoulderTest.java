@@ -34,10 +34,10 @@ public class BoulderTest {
     @Test
     public void testIllegalGrade() {
         Boulder boulder = new Boulder();
-        assertThrows(IllegalStateException.class, () -> boulder.setGrade("A7"));
-        assertThrows(IllegalStateException.class, () -> boulder.setGrade("2A"));
-        assertThrows(IllegalStateException.class, () -> boulder.setGrade("6D"));
-        assertThrows(IllegalStateException.class, () -> boulder.setGrade("6+"));
+        assertThrows(IllegalArgumentException.class, () -> boulder.setGrade("A7"));
+        assertThrows(IllegalArgumentException.class, () -> boulder.setGrade("2A"));
+        assertThrows(IllegalArgumentException.class, () -> boulder.setGrade("6D"));
+        assertThrows(IllegalArgumentException.class, () -> boulder.setGrade("6+"));
         boulder.setGrade("3");
         boulder.setGrade("3+");
         boulder.setGrade("6A");
