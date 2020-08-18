@@ -46,7 +46,7 @@ The web service provides APIs for collections and boulders.
 
 ### Boulders
 
-#### Get a list of boulder: `GET /api/boulders/`
+#### Get a list of all boulders: `GET /api/boulders/`
 
 Example response:
 ```
@@ -95,7 +95,7 @@ Example response:
 }
 ```
 
-#### Get a specific boulder: `GET /api/boulders/{id}`
+#### Get a specific boulder by ID: `GET /api/boulders/{id}`
 
 Example response:
 ```
@@ -176,3 +176,15 @@ Current available sorting methods are `name` and `grade`.
 `GET /api/collections/{id}?sort=name`
 
 `GET /api/collections/{id}?sort=grade`
+
+##### Get a specific collection by ID and filtered boulders
+Available filtering methods are `mingrade` and `maxgrade`.
+
+Grade are on the [Fontainbleau format](https://en.wikipedia.org/wiki/Grade_(bouldering)#Fontainebleau_grades), eg. 7A+, starting from 3.
+
+`GET /api/collections/{id}?maxgrade={grade}`
+
+`GET /api/collections/{id}?mingrade={grade}`
+
+`GET /api/collections/{id}?mingrade={grade1}&maxgrade={grade2}`
+
