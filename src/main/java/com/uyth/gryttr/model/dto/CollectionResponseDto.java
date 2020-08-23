@@ -5,6 +5,7 @@ import java.util.List;
 public class CollectionResponseDto {
     private long id;
     private String name;
+    private List<BoulderResponseDto> boulders;
 
     public long getId() {
         return id;
@@ -30,5 +31,4 @@ public class CollectionResponseDto {
         this.boulders = boulders;
     }
 
-    private List<BoulderResponseDto> boulders;
 }

@@ -3,7 +3,6 @@ package com.uyth.gryttr.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -34,7 +33,7 @@ public class CollectionTest {
 
     @Test
     public void testSetBoulders() {
-        Set<Boulder> boulders = new HashSet<>();
+        HashSet<Boulder> boulders = new HashSet<>();
         boulders.add(mock(Boulder.class));
 
         Collection collection = new Collection();

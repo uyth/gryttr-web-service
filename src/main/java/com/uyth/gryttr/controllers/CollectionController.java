@@ -3,11 +3,11 @@ package com.uyth.gryttr.controllers;
 import com.uyth.gryttr.exceptions.ResourceNotFoundException;
 import com.uyth.gryttr.model.Boulder;
 import com.uyth.gryttr.model.Collection;
+import com.uyth.gryttr.model.assemblers.CollectionAssembler;
 import com.uyth.gryttr.model.dto.BoulderResponseDto;
 import com.uyth.gryttr.model.dto.CollectionCreationDto;
 import com.uyth.gryttr.model.dto.CollectionResponseDto;
 import com.uyth.gryttr.repository.CollectionRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +25,12 @@ public class CollectionController {
     @Autowired
     CollectionRepository collectionRepository;
 
+    @Autowired
+    CollectionAssembler collectionAssembler;
+
     @GetMapping("/collections")
     public List<CollectionResponseDto> getAllBoulder() {
-        return collectionRepository.findAll().stream().map(this::mapCollectionToResponseDto).collect(Collectors.toList());
+        return collectionRepository.findAll().stream().map(c -> collectionAssembler.mapToDto(c)).collect(Collectors.toList());
     }
 
     @GetMapping("/collections/{id}")
@@ -40,7 +43,7 @@ public class CollectionController {
         sanitizeParameters(sort, mingrade, maxgrade);
         Collection collection = safeGetCollectionById(id);
         collection = filterBoulders(mingrade, maxgrade, collection);
-        CollectionResponseDto responseDto = mapCollectionToResponseDto(collection);
+        CollectionResponseDto responseDto = collectionAssembler.mapToDto(collection);
         List<BoulderResponseDto> boulders = sortBoulders(sort, responseDto.getBoulders());
         responseDto.setBoulders(boulders);
         return ResponseEntity.ok().body(responseDto);
@@ -94,11 +97,6 @@ public class CollectionController {
         return collection;
     }
 
-    protected CollectionResponseDto mapCollectionToResponseDto(Collection collection) {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(collection, CollectionResponseDto.class);
-    }
-
     protected List<BoulderResponseDto> sortBoulders(String sort, List<BoulderResponseDto> boulders) {
         if (sort != null) {
             if (sort.equals(NAME)) {
@@ -112,16 +110,11 @@ public class CollectionController {
 
     @PostMapping("/collections")
     public ResponseEntity<CollectionResponseDto> addCollection(@RequestBody CollectionCreationDto collectionDto) {
-        Collection collection = generateCollection(collectionDto);
-        CollectionResponseDto responseDto = mapCollectionToResponseDto(collection);
-        return ResponseEntity.ok().body(responseDto);
-    }
+        Collection collection = collectionAssembler.mapToCollection(collectionDto);
+        collectionRepository.save(collection);
 
-    protected Collection generateCollection(CollectionCreationDto collectionDto) {
-        Collection collection = new Collection();
-        collection.setName(collectionDto.getName());
-        collection.setBoulders(new HashSet<>());
-        return collectionRepository.save(collection);
+        CollectionResponseDto responseDto = collectionAssembler.mapToDto(collection);
+        return ResponseEntity.ok().body(responseDto);
     }
 
 }
