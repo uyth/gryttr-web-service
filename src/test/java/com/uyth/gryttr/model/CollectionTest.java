@@ -46,10 +46,10 @@ public class CollectionTest {
     public void testAddBoulder() {
         Collection collection = generateEmptyCollection();
         collection.setId(ID);
-        Boulder mockBoulder = new Boulder();
-        collection.addBoulder(mockBoulder);
-        collection.addBoulder(mockBoulder);
-        assertTrue(collection.getBoulders().contains(mockBoulder));
+        Boulder boulder = new Boulder();
+        collection.addBoulder(boulder);
+        collection.addBoulder(boulder);
+        assertTrue(collection.getBoulders().contains(boulder));
     }
 
     private Collection generateEmptyCollection() {
