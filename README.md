@@ -40,6 +40,28 @@ Run the project from your IDEA.
 
 The application should be available at [http://localhost:8080/]().
 
+## Boulders and Collection
+
+**Boulder**
+
+A boulder is an entity with the following properties:
+
+* ID: Long
+* Name: String
+* Grade: String; Grades are on the [Fontainbleau format](https://en.wikipedia.org/wiki/Grade_(bouldering)#Fontainebleau_grades), eg. 7A+, starting from 3.
+* Latitude: Double; Must be in the interval [-90, 90].
+* Longitude: Double; Must be in the interval [0, 180].
+* Collection: Entity
+
+**Collection**
+
+A collection is an entity with the following properties:
+
+* ID: Long
+* Name: String
+* Boulders: List of Boulder entities.
+
+
 ## API
 
 The web service provides APIs for collections and boulders.
@@ -179,8 +201,6 @@ Current available sorting methods are `name` and `grade`.
 
 ##### Get a specific collection by ID and filtered boulders
 Available filtering methods are `mingrade` and `maxgrade`.
-
-Grade are on the [Fontainbleau format](https://en.wikipedia.org/wiki/Grade_(bouldering)#Fontainebleau_grades), eg. 7A+, starting from 3.
 
 `GET /api/collections/{id}?maxgrade={grade}`
 
